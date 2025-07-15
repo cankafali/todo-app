@@ -1,20 +1,23 @@
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
+const emptyMessage = document.getElementById("emptyMessage");
 
 function loadTasks() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.forEach(task => createTaskElement(task.text, task.completed));
+  updateEmptyMessage();
 }
 
 function saveTasks() {
   const tasks = [];
   document.querySelectorAll("li").forEach(li => {
     tasks.push({
-      text: li.firstChild.textContent,
+      text: li.childNodes[0].textContent.trim(),
       completed: li.classList.contains("completed")
     });
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  updateEmptyMessage();
 }
 
 function createTaskElement(text, completed = false) {
@@ -28,7 +31,7 @@ function createTaskElement(text, completed = false) {
   });
 
   const delBtn = document.createElement("button");
-  delBtn.textContent = "❌";
+  delBtn.textContent = "🗑️";
   delBtn.onclick = e => {
     e.stopPropagation();
     li.remove();
@@ -37,6 +40,7 @@ function createTaskElement(text, completed = false) {
 
   li.appendChild(delBtn);
   taskList.appendChild(li);
+  updateEmptyMessage();
 }
 
 function addTask() {
@@ -58,6 +62,10 @@ function filterTasks(filter) {
 
 function toggleTheme() {
   document.body.classList.toggle("dark");
+}
+
+function updateEmptyMessage() {
+  emptyMessage.style.display = taskList.children.length === 0 ? "block" : "none";
 }
 
 window.onload = loadTasks;

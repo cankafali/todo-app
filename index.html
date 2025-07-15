@@ -8,18 +8,19 @@
 </head>
 <body>
   <div class="container">
-    <h1>To-Do List</h1>
+    <h1>📝 To-Do List</h1>
     <div class="input-group">
       <input type="text" id="taskInput" placeholder="Yeni görev girin..." />
-      <button onclick="addTask()">Ekle</button>
+      <button onclick="addTask()">➕</button>
       <button onclick="toggleTheme()">🌙</button>
     </div>
     <div class="filter-group">
       <button onclick="filterTasks('all')">Tümü</button>
-      <button onclick="filterTasks('completed')">Tamamlananlar</button>
-      <button onclick="filterTasks('pending')">Tamamlanmayanlar</button>
+      <button onclick="filterTasks('completed')">✅</button>
+      <button onclick="filterTasks('pending')">🕒</button>
     </div>
     <ul id="taskList"></ul>
+    <p id="emptyMessage">📭 Görev bulunmamaktadır</p>
   </div>
   <script src="script.js"></script>
 </body>
